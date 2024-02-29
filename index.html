@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📻 RadioCSD - Pedidos de musicas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RadioCSD 📻 - Pedidos de Musicas</h1>
+        <div class="form-group">
+            <label for="songName">Autor + Nome da Música:</label>
+            <input type="text" placeholder="Bruno Mars - Talking to the moon" class="form-control" id="songName">
+        </div>
+        <button class="btn btn-success" onclick="submitSong()">Enviar Musica para a Rádio</button>
+    </div>
+
+    <script>
+        function submitSong() {
+            var songName = document.getElementById("songName").value;
+            fetch('/request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ songName: songName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire("O pedido foi enviado com sucesso");
+                } else {
+                  Swal.fire("erro");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📻 RadioCSD - Lista de Musicas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        .export-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Lista de Pedidos:</h2>
+        <ul id="songList"></ul>
+        <button class="btn btn-primary export-button" onclick="exportToCSV()">Exportar para CSV</button>
+    </div>
+
+    <script>
+        fetch('/admin/songs')
+        .then(response => response.json())
+        .then(data => {
+            displaySongs(data.songs);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        function displaySongs(songs) {
+            var songList = document.getElementById("songList");
+            songs.forEach(song => {
+                var listItem = document.createElement("li");
+                listItem.textContent = song;
+                songList.appendChild(listItem);
+            });
+        }
+
+        function exportToCSV() {
+            fetch('/admin/export')
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'music_requests.csv';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error('Error exporting to CSV:', error);
+            });
+        }
+    </script>
+</body>
+</html>
