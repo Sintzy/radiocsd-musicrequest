@@ -9,16 +9,30 @@
         body {
             background-color: #1a202c;
         }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .custom-input {
+            border-radius: 0.5rem;
+        }
+        .custom-button {
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .custom-button:hover {
+            background-color: #4a90e2;
+        }
     </style>
 </head>
 <body class="flex justify-center items-center h-screen">
-    <div class="max-w-xl w-full p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-        <h1 class="text-3xl font-bold mb-6 text-center"> 📻 RadioCSD - Pedidos Músicais</h1>
+    <div class="container p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-6 text-center">📻 RadioCSD - Pedidos Músicais</h1>
         <div class="mb-4">
-            <label for="songName" class="block text-gray-700 dark:text-gray-300">Artista + Nome da Música:</label>
-            <input type="text" placeholder="Bruno Mars - Talking to the moon"class="form-input mt-1 block w-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" id="songName">
+            <label for="songName" class="block text-gray-700 dark:text-gray-300">Artista Nome da Música:</label>
+            <input type="text" class="custom-input form-input mt-1 block w-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" id="songName">
         </div>
-        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="submitSong()">Enviar Pedido</button>
+        <button class="custom-button bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="submitSong()">Enviar Pedido</button>
     </div>
 
     <script>
